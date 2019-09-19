@@ -27,9 +27,9 @@ class Bme280Cnt(object):
         self.config_reg    = (self.stby << 5) | (self.filter << 2) | self.spion
         self.ctrl_hum_reg  = self.Hovs
 
-        self.writeSensor(0xF2, self.ctrl_hum_reg)
-        self.writeSensor(0xF4, self.ctrl_meas_reg)
-        self.writeSensor(0xF5, self.config_reg)
+        self.writeI2C(0xF2, self.ctrl_hum_reg)
+        self.writeI2C(0xF4, self.ctrl_meas_reg)
+        self.writeI2C(0xF5, self.config_reg)
 
         self.getCalibration()
         self.readDataFromBme280()
@@ -37,7 +37,7 @@ class Bme280Cnt(object):
 
 
     # Write Sensor I2C
-    def writeSensor(self, reg_addr, data):
+    def writeI2C(self, reg_addr, data):
         self.bus.write_byte_data(self._slave_addres, reg_addr, data)
 
 
@@ -87,7 +87,7 @@ class Bme280Cnt(object):
     def readDataFromBme280(self):
         self.data = []
         for i in range(0xF7, 0xF7+8):
-            self.data.append(self.bus.read_byte_data(0x76, i))
+            self.data.append(self.bus.read_byte_data(self._slave_addres, i))
         self.pres = (self.data[0] << 12) | (self.data[1] << 4) | (self.data[2] >> 4)
         self.temp = (self.data[3] << 12) | (self.data[4] << 4) | (self.data[5] >> 4)
         self.humi = (self.data[6] << 8)  |  self.data[7]
