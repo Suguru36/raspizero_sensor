@@ -67,6 +67,9 @@ class papirus_cont(object):
         #print(type(self.ip))
         self.papi.UpdateText("ip", self.ip)
 
+    def get_network_state(self):
+        return self.ip
+
     def update(self):
         self.papi.WriteAll()
 
