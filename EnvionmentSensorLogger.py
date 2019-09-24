@@ -35,7 +35,7 @@ class EnvionmentSensorLogger(object):
         self.r = self.ambi.send({"d1": self.temp, "d2": self.humid ,"d3": self.press})
 
     def network_state(self):
-        if (((self.papi.get_network_state()) == 'No Internet'):
+        if ((self.papi.get_network_state()) == 'No Internet'):
             return False
         else:
             return True
