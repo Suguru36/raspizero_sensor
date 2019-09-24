@@ -35,6 +35,7 @@ class EnvionmentSensorLogger(object):
         self.r = self.ambi.send({"d1": self.temp, "d2": self.humid ,"d3": self.press})
 
     def network_state(self):
+        print((self.papi.get_network_state())
         if ((self.papi.get_network_state()) == 'No Internet'):
             return False
         else:
@@ -49,8 +50,10 @@ if __name__ == "__main__":
         Sens.get_bme280_data()
         Sens.disp_data()
         if (Sens.network_state()):
+            print('ON')
             Sens.sendDataToAmbient()
         else:
+            print('OFF')
             pass
 
         sleep(10)
