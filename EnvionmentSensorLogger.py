@@ -48,7 +48,9 @@ if __name__ == "__main__":
 
     while(True):
         Sens.get_bme280_data()
+        sleep(3)
         Sens.disp_data()
+        speep(3)
         if (Sens.network_state()):
             #print('ON')
             Sens.sendDataToAmbient()
@@ -56,5 +58,5 @@ if __name__ == "__main__":
             #print('OFF')
             pass
 
-        sleep(10)
+        sleep(4)
 
